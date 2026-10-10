@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中國地理重點圖解與考點總整理</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass-panel {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-200">
+
+    <!-- Sticky Navigation Bar -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('overview')">
+                <div class="bg-brand-600 text-white p-2 rounded-xl shadow-md">
+                    <i class="fa-solid me-0 fa-map-location-dot text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight sm:text-xl text-slate-900 dark:text-white">中國地理考點總整理</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">國高中常考重點圖解與互動工具</p>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center space-x-2">
+                <button id="copyShareBtn" onclick="copyShareableLink()" class="flex items-center space-x-1.5 bg-brand-600 hover:bg-brand-700 text-white px-3.5 py-1.5 rounded-lg text-sm font-medium transition shadow-sm hover:shadow active:scale-95">
+                    <i class="fa-solid fa-share-nodes"></i>
+                    <span class="hidden sm:inline">複製分享連結</span>
+                </button>
+                <button onclick="toggleDarkMode()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
+                    <i id="themeIcon" class="fa-solid fa-moon text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs Carousel -->
+        <nav class="border-t border-slate-200/60 dark:border-slate-800/60 bg-slate-100/50 dark:bg-slate-900/50 px-4">
+            <div class="max-w-7xl mx-auto flex items-center space-x-1 overflow-x-auto py-2 hide-scrollbar text-sm font-medium">
+                <button onclick="switchTab('admin')" id="tab-admin" class="tab-btn px-3 py-1.5 rounded-lg whitespace-nowrap transition">
+                    1. 行政區劃
+                </button>
+                <button onclick="switchTab('terrain-steps')" id="tab-terrain-steps" class="tab-btn px-3 py-1.5 rounded-lg whitespace-nowrap transition">
+                    2. 三級階梯
+                </button>
+                <button onclick="switchTab('landforms')" id="tab-landforms" class="tab-btn px-3 py-1.5 rounded-lg whitespace-nowrap transition">
+                    3. 主要地形區
+                </button>
+                <button onclick="switchTab('rainfall')" id="tab-rainfall" class="tab-btn px-3 py-1.5 rounded-lg whitespace-nowrap transition">
+                    4. 降水特徵
+                </button>
+                <button onclick="switchTab('temperature')" id="tab-temperature" class="tab-btn px-3 py-1.5 rounded-lg whitespace-nowrap transition">
+                    5. 一月均溫
+                </button>
+                <button onclick="switchTab('climate')" id="tab-climate" class="tab-btn px-3 py-1.5 rounded-lg whitespace-nowrap transition">
+                    6. 氣候判別樹
+                </button>
+                <button onclick="switchTab('population')" id="tab-population" class="tab-btn px-3 py-1.5 rounded-lg whitespace-nowrap transition">
+                    7. 人口黑河騰衝線
+                </button>
+                <button onclick="switchTab('production')" id="tab-production" class="tab-btn px-3 py-1.5 rounded-lg whitespace-nowrap transition">
+                    8. 傳統生產方式
+                </button>
+                <button onclick="switchTab('quiz')" id="tab-quiz" class="tab-btn px-3 py-1.5 rounded-lg whitespace-nowrap transition bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                    <i class="fa-solid fa-graduation-cap mr-1"></i> 隨堂測驗
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center space-x-3 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-4 py-3 rounded-xl shadow-2xl border border-slate-700 dark:border-slate-300">
+        <i class="fa-solid fa-circle-check text-emerald-400 dark:text-emerald-600 text-xl"></i>
+        <div>
+            <p class="font-bold text-sm" id="toastTitle">連結已成功複製！</p>
+            <p class="text-xs text-slate-400 dark:text-slate-600" id="toastDesc">分享此連結將會直接進入當前頁面與設定。</p>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Module 1: 行政區圖 -->
+        <section id="module-admin" class="tab-content hidden space-y-6">
+            <div class="border-l-4 border-brand-500 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 1: 行政區劃與特別行政區</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">中國一級行政區包含 23個省、5個自治區、4個直轄市、2個特別行政區</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 5大自治區 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700/60 hover:shadow-md transition">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-lg">5</span>
+                        <div>
+                            <h3 class="font-bold text-slate-800 dark:text-slate-100">四大／五大自治區</h3>
+                            <p class="text-xs text-slate-500">少數民族主要聚居地</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-2.5 text-sm">
+                        <li class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-700/30">
+                            <span class="font-medium text-slate-700 dark:text-slate-200">新疆維吾爾自治區</span>
+                            <span class="text-xs bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 px-2 py-0.5 rounded">烏魯木齊</span>
+                        </li>
+                        <li class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-700/30">
+                            <span class="font-medium text-slate-700 dark:text-slate-200">西藏自治區</span>
+                            <span class="text-xs bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 px-2 py-0.5 rounded">拉薩</span>
+                        </li>
+                        <li class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-700/30">
+                            <span class="font-medium text-slate-700 dark:text-slate-200">內蒙古自治區</span>
+                            <span class="text-xs bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 px-2 py-0.5 rounded">呼和浩特</span>
+                        </li>
+                        <li class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-700/30">
+                            <span class="font-medium text-slate-700 dark:text-slate-200">寧夏回族自治區</span>
+                            <span class="text-xs bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 px-2 py-0.5 rounded">銀川</span>
+                        </li>
+                        <li class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-700/30">
+                            <span class="font-medium text-slate-700 dark:text-slate-200">廣西壯族自治區</span>
+                            <span class="text-xs bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 px-2 py-0.5 rounded">南寧</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 4大直轄市 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700/60 hover:shadow-md transition">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-lg">4</span>
+                        <div>
+                            <h3 class="font-bold text-slate-800 dark:text-slate-100">四大直轄市</h3>
+                            <p class="text-xs text-slate-500">中央政府直轄重點城市</p>
+                        </div>
+                    </div>
+                    <ul class="space-y-2.5 text-sm">
+                        <li class="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-700/30 flex items-center justify-between">
+                            <span class="font-bold text-emerald-600 dark:text-emerald-400">北京市</span>
+                            <span class="text-xs text-slate-500">首都、政治中心</span>
+                        </li>
+                        <li class="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-700/30 flex items-center justify-between">
+                            <span class="font-bold text-emerald-600 dark:text-emerald-400">天津市</span>
+                            <span class="text-xs text-slate-500">華北門戶港口</span>
+                        </li>
+                        <li class="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-700/30 flex items-center justify-between">
+                            <span class="font-bold text-emerald-600 dark:text-emerald-400">上海市</span>
+                            <span class="text-xs text-slate-500">經濟與金融中心</span>
+                        </li>
+                        <li class="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-700/30 flex items-center justify-between">
+                            <span class="font-bold text-emerald-600 dark:text-emerald-400">重慶市</span>
+                            <span class="text-xs text-slate-500">西南樞紐、面積最大</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 2特別行政區 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700/60 hover:shadow-md transition">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <span class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold text-lg">2</span>
+                        <div>
+                            <h3 class="font-bold text-slate-800 dark:text-slate-100">特別行政區 (SAR)</h3>
+                            <p class="text-xs text-slate-500">實施一國兩制原則</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3 text-sm">
+                        <div class="p-3 rounded-xl border border-amber-200 dark:border-amber-800/40 bg-amber-50/50 dark:bg-amber-950/20">
+                            <div class="font-bold text-amber-700 dark:text-amber-400">香港特別行政區</div>
+                            <div class="text-xs text-slate-600 dark:text-slate-400 mt-1">國際金融、航運與貿易中心</div>
+                        </div>
+                        <div class="p-3 rounded-xl border border-amber-200 dark:border-amber-800/40 bg-amber-50/50 dark:bg-amber-950/20">
+                            <div class="font-bold text-amber-700 dark:text-amber-400">澳門特別行政區</div>
+                            <div class="text-xs text-slate-600 dark:text-slate-400 mt-1">旅遊娛樂與博彩業中心</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 2: 三級階梯圖 -->
+        <section id="module-terrain-steps" class="tab-content hidden space-y-6">
+            <div class="border-l-4 border-brand-500 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 2: 三級階梯地形剖面圖</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">中國地勢「西高東低」，呈三級階梯狀逐級下降</p>
+            </div>
+
+            <!-- Profile Interactive Diagram -->
+            <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+                <h3 class="text-lg font-bold mb-4 flex items-center space-x-2">
+                    <i class="fa-solid fa-mountain text-brand-600"></i>
+                    <span>地勢剖面視覺化 (西 ➔ 東)</span>
+                </h3>
+
+                <!-- Cross Section Visual SVG -->
+                <div class="w-full overflow-x-auto">
+                    <div class="min-w-[650px] relative h-64 bg-slate-50 dark:bg-slate-900 rounded-xl p-4 border border-slate-200 dark:border-slate-700 flex items-end">
+                        
+                        <!-- 第一級階梯 -->
+                        <div class="w-1/3 h-[90%] bg-amber-500/20 border-t-4 border-amber-500 relative rounded-tl-lg flex flex-col justify-between p-3 group hover:bg-amber-500/30 transition cursor-pointer" onclick="filterStep('1')">
+                            <div class="bg-amber-500 text-white font-bold text-xs px-2 py-1 rounded w-max">第一級階梯</div>
+                            <div>
+                                <p class="text-lg font-extrabold text-amber-600 dark:text-amber-400">> 4000 m</p>
+                                <p class="text-xs font-semibold text-slate-700 dark:text-slate-300">「世界屋脊」青藏高原</p>
+                            </div>
+                        </div>
+
+                        <!-- 界線 1 -->
+                        <div class="w-2 bg-slate-400 h-[65%] flex items-center justify-center relative">
+                            <span class="absolute -top-6 text-[10px] bg-slate-700 text-white px-1.5 py-0.5 rounded whitespace-nowrap">昆崙-祁連-橫斷</span>
+                        </div>
+
+                        <!-- 第二級階梯 -->
+                        <div class="w-1/3 h-[50%] bg-blue-500/20 border-t-4 border-blue-500 relative flex flex-col justify-between p-3 group hover:bg-blue-500/30 transition cursor-pointer" onclick="filterStep('2')">
+                            <div class="bg-blue-500 text-white font-bold text-xs px-2 py-1 rounded w-max">第二級階梯</div>
+                            <div>
+                                <p class="text-lg font-extrabold text-blue-600 dark:text-blue-400">1000 ~ 2000 m</p>
+                                <p class="text-xs font-semibold text-slate-700 dark:text-slate-300">高原與大型盆地</p>
+                            </div>
+                        </div>
+
+                        <!-- 界線 2 -->
+                        <div class="w-2 bg-slate-400 h-[30%] flex items-center justify-center relative">
+                            <span class="absolute -top-6 text-[10px] bg-slate-700 text-white px-1.5 py-0.5 rounded whitespace-nowrap">大興安嶺-太行-巫山-雪峰</span>
+                        </div>
+
+                        <!-- 第三級階梯 -->
+                        <div class="w-1/3 h-[25%] bg-emerald-500/20 border-t-4 border-emerald-500 relative rounded-tr-lg flex flex-col justify-between p-3 group hover:bg-emerald-500/30 transition cursor-pointer" onclick="filterStep('3')">
+                            <div class="bg-emerald-500 text-white font-bold text-xs px-2 py-1 rounded w-max">第三級階梯</div>
+                            <div>
+                                <p class="text-lg font-extrabold text-emerald-600 dark:text-emerald-400">< 500 m</p>
+                                <p class="text-xs font-semibold text-slate-700 dark:text-slate-300">廣闊平原與丘陵</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step Comparison Table -->
+                <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div id="step-card-1" class="p-4 rounded-xl border border-amber-200 dark:border-amber-800/40 bg-amber-50/30 dark:bg-amber-950/20">
+                        <span class="text-xs font-bold text-amber-600 dark:text-amber-400">平均海拔 > 4000公尺</span>
+                        <h4 class="text-lg font-bold mt-1 text-slate-900 dark:text-slate-100">第一級階梯</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-2">包含：青藏高原、柴達木盆地。</p>
+                        <p class="text-xs text-slate-500 mt-1">界線：昆崙山脈－祁連山脈－橫斷山脈。</p>
+                    </div>
+
+                    <div id="step-card-2" class="p-4 rounded-xl border border-blue-200 dark:border-blue-800/40 bg-blue-50/30 dark:bg-blue-950/20">
+                        <span class="text-xs font-bold text-blue-600 dark:text-blue-400">平均海拔 1000~2000公尺</span>
+                        <h4 class="text-lg font-bold mt-1 text-slate-900 dark:text-slate-100">第二級階梯</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-2">包含：內蒙古高原、黃土高原、雲貴高原；塔里木盆地、準噶爾盆地、四川盆地。</p>
+                        <p class="text-xs text-slate-500 mt-1">界線：大興安嶺－太行山脈－巫山－雪峰山。</p>
+                    </div>
+
+                    <div id="step-card-3" class="p-4 rounded-xl border border-emerald-200 dark:border-emerald-800/40 bg-emerald-50/30 dark:bg-emerald-950/20">
+                        <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400">平均海拔 < 500公尺</span>
+                        <h4 class="text-lg font-bold mt-1 text-slate-900 dark:text-slate-100">第三級階梯</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 mt-2">包含：東北平原、華北平原、長江中下游平原及東南丘陵。</p>
+                        <p class="text-xs text-slate-500 mt-1">延伸：東部沿海大陸棚。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 3: 主要地形區 -->
+        <section id="module-landforms" class="tab-content hidden space-y-6">
+            <div class="border-l-4 border-brand-500 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 3: 主要地形區總覽</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">四大高原、四大盆地、三大平原考點歸納</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- 四大高原 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-lg font-bold mb-4 text-indigo-600 dark:text-indigo-400 flex items-center space-x-2">
+                        <i class="fa-solid fa-mountain-sun"></i>
+                        <span>四大高原</span>
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/60 dark:border-slate-700">
+                            <span class="text-xs bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 font-bold px-2 py-0.5 rounded">世界屋脊</span>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 mt-2">青藏高原</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">海拔最高，雪山連綿、冰川廣布，高寒氣候。</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/60 dark:border-slate-700">
+                            <span class="text-xs bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-300 font-bold px-2 py-0.5 rounded">水土流失嚴重</span>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 mt-2">黃土高原</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">黃土廣布，千溝萬壑、支離破碎，易造成水土流失。</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/60 dark:border-slate-700">
+                            <span class="text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 font-bold px-2 py-0.5 rounded">喀斯特地形</span>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 mt-2">雲貴高原</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">石灰岩廣布，溶蝕發育，崎嶇不平，壩子農業。</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/60 dark:border-slate-700">
+                            <span class="text-xs bg-cyan-100 dark:bg-cyan-900 text-cyan-700 dark:text-cyan-300 font-bold px-2 py-0.5 rounded">坦蕩開闊</span>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 mt-2">內蒙古高原</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">地面平坦開闊，草原遼闊，主要傳統畜牧區。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 四大盆地 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-lg font-bold mb-4 text-emerald-600 dark:text-emerald-400 flex items-center space-x-2">
+                        <i class="fa-solid fa-square-envelope"></i>
+                        <span>四大盆地</span>
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/60 dark:border-slate-700">
+                            <span class="text-xs bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 font-bold px-2 py-0.5 rounded">面積最大</span>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 mt-2">塔里木盆地</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">內含塔克拉瑪干沙漠，綠洲農業發達。</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/60 dark:border-slate-700">
+                            <span class="text-xs bg-teal-100 dark:bg-teal-900 text-teal-700 dark:text-teal-300 font-bold px-2 py-0.5 rounded">緯度最高</span>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 mt-2">準噶爾盆地</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">西北部有缺口，大西洋水氣可微弱進入，受溫暖半乾旱影響。</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/60 dark:border-slate-700">
+                            <span class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-bold px-2 py-0.5 rounded">聚寶盆/海拔最高</span>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 mt-2">柴達木盆地</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">地位於第一級階梯，礦產資源極為豐富。</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/60 dark:border-slate-700">
+                            <span class="text-xs bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 font-bold px-2 py-0.5 rounded">紫色盆地/天府之國</span>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 mt-2">四川盆地</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">土壤肥沃，氣候溫和濕潤，農業發達人口稠密。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 三大平原 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <h3 class="text-lg font-bold mb-4 text-amber-600 dark:text-amber-400 flex items-center space-x-2">
+                        <i class="fa-solid fa-wheat-awn"></i>
+                        <span>三大平原</span>
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/60 dark:border-slate-700">
+                            <span class="text-xs bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-300 font-bold px-2 py-0.5 rounded">面積最大/黑土肥沃</span>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 mt-2">東北平原</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">黑土廣布，機械化程度高，主要商品糧基地。</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/60 dark:border-slate-700">
+                            <span class="text-xs bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300 font-bold px-2 py-0.5 rounded">黃淮海平原</span>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 mt-2">華北平原</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">由黃河、淮河、海河沖積而成，地勢平坦人口密。</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/60 dark:border-slate-700">
+                            <span class="text-xs bg-rose-100 dark:bg-rose-900 text-rose-700 dark:text-rose-300 font-bold px-2 py-0.5 rounded">魚米之鄉</span>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 mt-2">長江中下游平原</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 mt-1">地勢低平，河網密佈，水稻種植歷史悠久。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 4: 降水特徵 -->
+        <section id="module-rainfall" class="tab-content hidden space-y-6">
+            <div class="border-l-4 border-brand-500 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 4: 中國降水特徵</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">空間分佈特徵：東南沿海向西北內陸遞減</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 750mm 等降水量線（秦嶺－淮河） -->
+                <div class="bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-2xl p-6 shadow-lg">
+                    <span class="bg-white/20 text-white text-xs px-2.5 py-1 rounded-full font-bold">重要地理界線</span>
+                    <h3 class="text-2xl font-black mt-3">750 mm / 800 mm 等降水量線</h3>
+                    <p class="text-blue-100 text-sm mt-1">（秦嶺 － 淮河 一線）</p>
+
+                    <div class="mt-6 space-y-3 bg-white/10 p-4 rounded-xl backdrop-blur-sm text-sm">
+                        <div class="flex items-center justify-between">
+                            <span>南方（濕潤區）</span>
+                            <span class="font-bold text-emerald-300">> 750 mm</span>
+                        </div>
+                        <div class="border-t border-white/20"></div>
+                        <div class="flex items-center justify-between">
+                            <span>北方（半濕潤區）</span>
+                            <span class="font-bold text-amber-300">< 750 mm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 影響因素與特徵 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-lg text-slate-800 dark:text-slate-100 mb-3">降水影響因素與時空變化</h3>
+                        <ul class="space-y-3 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-cloud-showers-heavy text-brand-500 mt-1"></i>
+                                <span><strong>夏季風影響：</strong> 降水主要集中於夏季（7~8月），受東南季風與西南季風影響。</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-route text-brand-500 mt-1"></i>
+                                <span><strong>海陸位置：</strong> 距海越遠，受海洋水氣影響越小，降水量遞減。</span>
+                            </li>
+                            <li class="flex items-start space-x-2">
+                                <i class="fa-solid fa-mountain-sun text-brand-500 mt-1"></i>
+                                <span><strong>地形阻擋：</strong> 山脈迎風坡降水多，背風坡雨影區降水少。</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 5: 一月均溫 -->
+        <section id="module-temperature" class="tab-content hidden space-y-6">
+            <div class="border-l-4 border-brand-500 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 5: 中國一月月均溫特徵</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">冬季氣溫特徵：南北溫差大，自南向北遞減</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 一月 0℃ 等溫線 -->
+                <div class="bg-gradient-to-br from-cyan-600 to-blue-700 text-white rounded-2xl p-6 shadow-lg">
+                    <span class="bg-white/20 text-white text-xs px-2.5 py-1 rounded-full font-bold">重要氣溫界線</span>
+                    <h3 class="text-2xl font-black mt-3">一月月均溫 0℃ 等溫線</h3>
+                    <p class="text-cyan-100 text-sm mt-1">（秦嶺 － 淮河 一線）</p>
+
+                    <div class="mt-6 space-y-3 bg-white/10 p-4 rounded-xl backdrop-blur-sm text-sm">
+                        <div class="flex items-center justify-between">
+                            <span>秦嶺淮河以南（河流不結冰）</span>
+                            <span class="font-bold text-amber-300">> 0℃</span>
+                        </div>
+                        <div class="border-t border-white/20"></div>
+                        <div class="flex items-center justify-between">
+                            <span>秦嶺淮河以北（河流會結冰）</span>
+                            <span class="font-bold text-cyan-200">< 0℃</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 考點歸納 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <h3 class="font-bold text-lg text-slate-800 dark:text-slate-100 mb-3">秦嶺－淮河線四大核心意義</h3>
+                    <div class="grid grid-cols-2 gap-3 text-sm">
+                        <div class="p-3 bg-slate-50 dark:bg-slate-700/30 rounded-xl">
+                            <span class="text-xs text-brand-600 dark:text-brand-400 font-bold">1. 氣溫界線</span>
+                            <p class="font-medium mt-1">一月 0℃ 等溫線</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 dark:bg-slate-700/30 rounded-xl">
+                            <span class="text-xs text-brand-600 dark:text-brand-400 font-bold">2. 降水量界線</span>
+                            <p class="font-medium mt-1">750mm 等降水量線</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 dark:bg-slate-700/30 rounded-xl">
+                            <span class="text-xs text-brand-600 dark:text-brand-400 font-bold">3. 氣候區分界</span>
+                            <p class="font-medium mt-1">溫帶季風 / 副熱帶季風</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 dark:bg-slate-700/30 rounded-xl">
+                            <span class="text-xs text-brand-600 dark:text-brand-400 font-bold">4. 農業傳統區</span>
+                            <p class="font-medium mt-1">北旱作小麥 / 南水田水稻</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 6: 六種氣候類型與判別樹 -->
+        <section id="module-climate" class="tab-content hidden space-y-6">
+            <div class="border-l-4 border-brand-500 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 6: 六大氣候類型與互動判別樹</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">依照氣溫與降水條件進行快速檢測與判別</p>
+            </div>
+
+            <!-- Climate Interactive Classifier Calculator -->
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-md border border-brand-100 dark:border-brand-900/50">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-bold text-brand-600 dark:text-brand-400 flex items-center space-x-2">
+                        <i class="fa-solid fa-network-wired"></i>
+                        <span>氣候互動判別機</span>
+                    </h3>
+                    <button onclick="resetClimateTree()" class="text-xs bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2.5 py-1 rounded-md hover:bg-slate-200">
+                        <i class="fa-solid fa-arrows-rotate mr-1"></i>重置
+                    </button>
+                </div>
+
+                <!-- Step Navigator Bar -->
+                <div id="climateTreeStep" class="p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700">
+                    <!-- Step Content Injected via JS -->
+                </div>
+            </div>
+
+            <!-- 6 大氣候總覽 Card Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <span class="text-xs bg-cyan-100 text-cyan-800 font-bold px-2 py-0.5 rounded">高山氣候</span>
+                    <h4 class="font-bold text-lg mt-2">高地氣候</h4>
+                    <p class="text-xs text-slate-500 mt-1">最暖月均溫 < 20℃，終年年溫差小，日溫差大，高寒少雨。</p>
+                </div>
+                <div class="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <span class="text-xs bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded">乾燥氣候</span>
+                    <h4 class="font-bold text-lg mt-2">溫帶草原氣候</h4>
+                    <p class="text-xs text-slate-500 mt-1">降水約 250~500mm，夏溫高冬寒冷，半乾旱。</p>
+                </div>
+                <div class="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <span class="text-xs bg-orange-100 text-orange-800 font-bold px-2 py-0.5 rounded">極度乾燥</span>
+                    <h4 class="font-bold text-lg mt-2">溫帶沙漠氣候</h4>
+                    <p class="text-xs text-slate-500 mt-1">年降水量 < 250mm，日溫差極大，極度乾旱。</p>
+                </div>
+                <div class="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <span class="text-xs bg-blue-100 text-blue-800 font-bold px-2 py-0.5 rounded">季風氣候</span>
+                    <h4 class="font-bold text-lg mt-2">溫帶季風氣候</h4>
+                    <p class="text-xs text-slate-500 mt-1">最冷月 < 0℃，夏季高溫多雨，雨熱同行。</p>
+                </div>
+                <div class="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded">季風氣候</span>
+                    <h4 class="font-bold text-lg mt-2">副熱帶季風氣候</h4>
+                    <p class="text-xs text-slate-500 mt-1">最冷月 0~15℃，年降水量 > 750mm，無明顯乾季。</p>
+                </div>
+                <div class="p-4 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm">
+                    <span class="text-xs bg-rose-100 text-rose-800 font-bold px-2 py-0.5 rounded">熱帶氣候</span>
+                    <h4 class="font-bold text-lg mt-2">熱帶季風氣候</h4>
+                    <p class="text-xs text-slate-500 mt-1">最冷月 > 15℃，全年高溫，分明顯乾濕兩季。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 7: 黑河－騰衝人口分布 -->
+        <section id="module-population" class="tab-content hidden space-y-6">
+            <div class="border-l-4 border-brand-500 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 7: 黑河－騰衝人口地理界線</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">胡煥庸線（黑河－騰衝線）：東南半壁密，西北半壁疏</p>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    <div>
+                        <div class="inline-block bg-rose-100 dark:bg-rose-900/60 text-rose-700 dark:text-rose-300 font-bold text-xs px-2.5 py-1 rounded-md mb-2">人口核心界線</div>
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-100">黑河－騰衝線（胡煥庸線）</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-300 mt-2">
+                            自黑龍江省<strong>黑河</strong>至雲南省<strong>騰衝</strong>拉出一條直線。
+                        </p>
+
+                        <div class="mt-4 space-y-3">
+                            <div class="p-3 bg-slate-50 dark:bg-slate-700/40 rounded-xl border-l-4 border-rose-500">
+                                <div class="font-bold text-sm text-rose-600 dark:text-rose-400">東南半壁（約占國土43%）</div>
+                                <p class="text-xs text-slate-600 dark:text-slate-300 mt-0.5">集中全中國約 <strong>94% 人口</strong>，平原多、氣候濕潤、經濟發達。</p>
+                            </div>
+                            <div class="p-3 bg-slate-50 dark:bg-slate-700/40 rounded-xl border-l-4 border-indigo-500">
+                                <div class="font-bold text-sm text-indigo-600 dark:text-indigo-400">西北半壁（約占國土57%）</div>
+                                <p class="text-xs text-slate-600 dark:text-slate-300 mt-0.5">僅占全中國約 <strong>6% 人口</strong>，高原沙漠多、乾燥高寒。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Density Badges Card -->
+                    <div class="bg-slate-50 dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-700">
+                        <h4 class="font-bold text-sm text-slate-700 dark:text-slate-200 mb-3">人口密度4種分級指標</h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between p-2 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                                <span class="text-xs font-bold text-emerald-600">極稠密區</span>
+                                <span class="text-xs font-mono font-bold">> 400 人 / km²</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                                <span class="text-xs font-bold text-blue-600">稠密區</span>
+                                <span class="text-xs font-mono font-bold">100 ~ 400 人 / km²</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                                <span class="text-xs font-bold text-amber-600">稀疏區</span>
+                                <span class="text-xs font-mono font-bold">10 ~ 100 人 / km²</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                                <span class="text-xs font-bold text-rose-600">極稀疏區</span>
+                                <span class="text-xs font-mono font-bold">< 10 人 / km²</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 8: 傳統生產方式 -->
+        <section id="module-production" class="tab-content hidden space-y-6">
+            <div class="border-l-4 border-brand-500 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 8: 傳統生產方式（西牧東農 / 北旱南水）</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">環境因地制宜產生的傳統農業與畜牧業差異</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- 西牧東農 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="p-2 rounded-lg bg-amber-100 dark:bg-amber-900/60 text-amber-600 dark:text-amber-300">
+                            <i class="fa-solid fa-cow text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold">西牧東農（以 400mm 等降水量線為界）</h3>
+                    </div>
+
+                    <div class="space-y-4 text-sm">
+                        <div class="p-3 bg-amber-50 dark:bg-amber-950/30 rounded-xl border border-amber-200 dark:border-amber-800/40">
+                            <h4 class="font-bold text-amber-800 dark:text-amber-400">西部畜牧業（代表牲畜）</h4>
+                            <ul class="list-disc list-inside mt-1 space-y-1 text-slate-600 dark:text-slate-300 text-xs">
+                                <li><strong>青藏高原：</strong> 氂牛、藏綿羊（耐寒耐高山氣候）</li>
+                                <li><strong>內蒙古高原：</strong> 雙峰駱駝、三河馬、三河牛</li>
+                                <li><strong>新疆：</strong> 細毛羊</li>
+                            </ul>
+                        </div>
+                        <div class="p-3 bg-emerald-50 dark:bg-emerald-950/30 rounded-xl border border-emerald-200 dark:border-emerald-800/40">
+                            <h4 class="font-bold text-emerald-800 dark:text-emerald-400">東部農業區</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">地形平坦、降水充沛，以種植業為主。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 北旱南水 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="p-2 rounded-lg bg-emerald-100 dark:bg-emerald-900/60 text-emerald-600 dark:text-emerald-300">
+                            <i class="fa-solid fa-seedling text-xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold">北旱南水（以 秦嶺－淮河 為界）</h3>
+                    </div>
+
+                    <div class="space-y-4 text-sm">
+                        <div class="p-3 bg-amber-50/60 dark:bg-slate-700/40 rounded-xl border border-slate-200 dark:border-slate-700">
+                            <h4 class="font-bold text-amber-700 dark:text-amber-400">北方旱作區</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">主食作物：小麥、玉米、高粱；經濟作物：大豆、花生、甜菜。</p>
+                        </div>
+                        <div class="p-3 bg-blue-50/60 dark:bg-slate-700/40 rounded-xl border border-slate-200 dark:border-slate-700">
+                            <h4 class="font-bold text-blue-700 dark:text-blue-400">南方水田區</h4>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">主食作物：水稻；經濟作物：茶葉、甘蔗、油菜。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 9: 隨堂測驗 -->
+        <section id="module-quiz" class="tab-content hidden space-y-6">
+            <div class="border-l-4 border-amber-500 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Module 9: 考點隨堂測驗</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">立即檢測地理重點掌握度</p>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
+                <div id="quizContainer">
+                    <!-- Quiz Injected via JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // State Machine Management
+        const appState = {
+            currentTab: 'admin',
+            climateStep: 'start',
+            stepFilter: null,
+            quizIndex: 0,
+            quizScore: 0
+        };
+
+        // Quiz Question Bank
+        const quizQuestions = [
+            {
+                q: "請問秦嶺－淮河一線是哪一條一月等溫線的分界？",
+                options: ["-10℃", "0℃", "15℃", "20℃"],
+                answer: 1,
+                explain: "秦嶺－淮河一線為中國一月 0℃ 等溫線，北方低於 0℃（河流結冰），南方高於 0℃。"
+            },
+            {
+                q: "胡煥庸線（黑河－騰衝線）主要揭示了中國哪種現象的分界？",
+                options: ["降水量分佈", "地形階梯分界", "人口密度分佈", "氣候類型分界"],
+                answer: 2,
+                explain: "黑河－騰衝線是中國著名的人口地理界線，東南半壁人口稠密（約占94%），西北半壁稀疏（約占6%）。"
+            },
+            {
+                q: "下列哪一個高原以「喀斯特地形（石灰岩溶蝕）、崎嶇不平」為顯著特徵？",
+                options: ["青藏高原", "黃土高原", "雲貴高原", "內蒙古高原"],
+                answer: 2,
+                explain: "雲貴高原石灰岩廣布，發育出顯著的喀斯特地形，地表崎嶇不平。"
+            },
+            {
+                q: "位於第一級階梯內，且有「聚寶盆」之稱的盆地是？",
+                options: ["四川盆地", "塔里木盆地", "準噶爾盆地", "柴達木盆地"],
+                answer: 3,
+                explain: "柴達木盆地部位於青藏高原內部（第一級階梯），礦產資源豐富，被譽為「聚寶盆」。"
+            }
+        ];
+
+        // Climate Tree Data Logic
+        const climateTree = {
+            start: {
+                question: "1. 該地區最暖月平均氣溫是否 < 20℃？",
+                options: [
+                    { label: "是 (< 20℃)", next: "highland" },
+                    { label: "否 (>= 20℃)", next: "step2" }
+                ]
+            },
+            highland: {
+                result: true,
+                title: "高地氣候",
+                desc: "地勢高昂，終年低溫，高寒少雨，日溫差大。"
+            },
+            step2: {
+                question: "2. 該地區年降水量特徵為何？",
+                options: [
+                    { label: "< 250 mm", next: "desert" },
+                    { label: "250 ~ 500 mm", next: "steppe" },
+                    { label: "> 500 mm (季風區)", next: "step3" }
+                ]
+            },
+            desert: {
+                result: true,
+                title: "溫帶沙漠氣候",
+                desc: "極度乾旱，年降水量小於 250mm，日溫差大。"
+            },
+            steppe: {
+                result: true,
+                title: "溫帶草原氣候",
+                desc: "半乾旱區，年降水約 250~500mm，植被以草原為主。"
+            },
+            step3: {
+                question: "3. 檢視該地區「最冷月平均氣溫」：",
+                options: [
+                    { label: "< 0℃", next: "temperate_monsoon" },
+                    { label: "0℃ ~ 15℃", next: "subtropical_monsoon" },
+                    { label: "> 15℃", next: "tropical_monsoon" }
+                ]
+            },
+            temperate_monsoon: {
+                result: true,
+                title: "溫帶季風氣候",
+                desc: "夏季高溫多雨，冬季寒冷乾燥，最冷月 < 0℃。"
+            },
+            subtropical_monsoon: {
+                result: true,
+                title: "副熱帶季風氣候",
+                desc: "最冷月 0~15℃，全年四季分明，雨熱同行。"
+            },
+            tropical_monsoon: {
+                result: true,
+                title: "熱帶季風氣候",
+                desc: "全年高溫（最冷月 > 15℃），分為明顯的乾季與雨季。"
+            }
+        };
+
+        // Initialize App on DOM Load
+        window.onload = function() {
+            parseUrlParams();
+            renderTab();
+            renderClimateTree();
+            renderQuiz();
+        };
+
+        // Parse URL Parameters to restore state
+        function parseUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            const tabParam = params.get('tab');
+            const climateStepParam = params.get('climateStep');
+
+            if (tabParam && document.getElementById(`module-${tabParam}`)) {
+                appState.currentTab = tabParam;
+            }
+            if (climateStepParam && climateTree[climateStepParam]) {
+                appState.climateStep = climateStepParam;
+            }
+        }
+
+        // Update URL WITHOUT reloading page
+        function updateUrl() {
+            const url = new URL(window.location);
+            url.searchParams.set('tab', appState.currentTab);
+            
+            if (appState.currentTab === 'climate') {
+                url.searchParams.set('climateStep', appState.climateStep);
+            } else {
+                url.searchParams.delete('climateStep');
+            }
+
+            window.history.replaceState({}, '', url);
+        }
+
+        // Switch Active Tab
+        function switchTab(tabId) {
+            appState.currentTab = tabId;
+            updateUrl();
+            renderTab();
+        }
+
+        // Render Tabs UI
+        function renderTab() {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(el => {
+                el.classList.remove('bg-brand-600', 'text-white', 'shadow-sm');
+                el.classList.add('text-slate-600', 'dark:text-slate-300', 'hover:bg-slate-200', 'dark:hover:bg-slate-800');
+            });
+
+            const activeContent = document.getElementById(`module-${appState.currentTab}`);
+            const activeTabBtn = document.getElementById(`tab-${appState.currentTab}`);
+
+            if (activeContent) activeContent.classList.remove('hidden');
+            if (activeTabBtn) {
+                activeTabBtn.classList.add('bg-brand-600', 'text-white', 'shadow-sm');
+                activeTabBtn.classList.remove('text-slate-600', 'dark:text-slate-300', 'hover:bg-slate-200', 'dark:hover:bg-slate-800');
+            }
+        }
+
+        // Climate Tree Render Function
+        function renderClimateTree() {
+            const container = document.getElementById('climateTreeStep');
+            const currentNode = climateTree[appState.climateStep] || climateTree.start;
+
+            if (currentNode.result) {
+                container.innerHTML = `
+                    <div class="text-center py-4">
+                        <span class="inline-block bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-bold">判別結果</span>
+                        <h4 class="text-2xl font-black text-slate-800 dark:text-slate-100 mt-2">${currentNode.title}</h4>
+                        <p class="text-slate-600 dark:text-slate-300 text-sm mt-2 max-w-md mx-auto">${currentNode.desc}</p>
+                        <button onclick="resetClimateTree()" class="mt-4 bg-brand-600 text-white px-4 py-2 rounded-xl text-sm font-medium hover:bg-brand-700 shadow">
+                            再試一次
+                        </button>
+                    </div>
+                `;
+            } else {
+                let optionsHtml = currentNode.options.map(opt => `
+                    <button onclick="nextClimateStep('${opt.next}')" class="p-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-brand-500 hover:shadow-md transition text-left font-medium text-slate-700 dark:text-slate-200">
+                        <i class="fa-solid fa-circle-chevron-right text-brand-500 mr-2"></i> ${opt.label}
+                    </button>
+                `).join('');
+
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <p class="font-bold text-slate-800 dark:text-slate-100 text-base">${currentNode.question}</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">${optionsHtml}</div>
+                    </div>
+                `;
+            }
+        }
+
+        function nextClimateStep(stepKey) {
+            appState.climateStep = stepKey;
+            updateUrl();
+            renderClimateTree();
+        }
+
+        function resetClimateTree() {
+            appState.climateStep = 'start';
+            updateUrl();
+            renderClimateTree();
+        }
+
+        // Step Filtering
+        function filterStep(stepNum) {
+            switchTab('terrain-steps');
+            const card = document.getElementById(`step-card-${stepNum}`);
+            if (card) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                card.classList.add('ring-2', 'ring-brand-500');
+                setTimeout(() => card.classList.remove('ring-2', 'ring-brand-500'), 2000);
+            }
+        }
+
+        // Quiz Engine
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            const q = quizQuestions[appState.quizIndex];
+
+            if (!q) {
+                container.innerHTML = `
+                    <div class="text-center py-8">
+                        <i class="fa-solid fa-trophy text-5xl text-amber-500 mb-3"></i>
+                        <h3 class="text-2xl font-bold">測驗完成！</h3>
+                        <p class="text-slate-500 dark:text-slate-400 mt-1">您答對了 ${appState.quizScore} / ${quizQuestions.length} 題！</p>
+                        <button onclick="resetQuiz()" class="mt-5 bg-brand-600 text-white px-5 py-2.5 rounded-xl font-medium shadow hover:bg-brand-700">
+                            重新測驗
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            let optionsHtml = q.options.map((opt, idx) => `
+                <button onclick="checkAnswer(${idx})" class="p-3.5 bg-slate-50 dark:bg-slate-700/40 hover:bg-brand-50 dark:hover:bg-brand-900/30 border border-slate-200 dark:border-slate-700 rounded-xl text-left font-medium transition flex items-center justify-between">
+                    <span>${idx + 1}. ${opt}</span>
+                    <i class="fa-regular fa-circle text-slate-400"></i>
+                </button>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between text-xs font-bold text-slate-400">
+                        <span>題目 ${appState.quizIndex + 1} / ${quizQuestions.length}</span>
+                        <span>得分: ${appState.quizScore}</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-slate-100">${q.q}</h3>
+                    <div class="grid grid-cols-1 gap-3">${optionsHtml}</div>
+                </div>
+            `;
+        }
+
+        function checkAnswer(idx) {
+            const q = quizQuestions[appState.quizIndex];
+            if (idx === q.answer) {
+                appState.quizScore++;
+                showToast("回答正確！", q.explain);
+            } else {
+                showToast("回答錯誤", `正確答案是：${q.options[q.answer]}`);
+            }
+            appState.quizIndex++;
+            renderQuiz();
+        }
+
+        function resetQuiz() {
+            appState.quizIndex = 0;
+            appState.quizScore = 0;
+            renderQuiz();
+        }
+
+        // Copy Shareable Link Engine
+        function copyShareableLink() {
+            updateUrl();
+            const fullUrl = window.location.href;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(fullUrl).then(() => {
+                    showToast("連結已成功複製！", "可直接貼上並傳送給他人。");
+                }).catch(() => fallbackCopy(fullUrl));
+            } else {
+                fallbackCopy(fullUrl);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+            showToast("連結已複製到剪貼簿！", "您可以傳送此連結給他人。");
+        }
+
+        // Toast Notification System
+        function showToast(title, desc) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastTitle').innerText = title;
+            document.getElementById('toastDesc').innerText = desc || '';
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Dark Mode Controller
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.className = "fa-solid fa-moon text-lg";
+            } else {
+                html.classList.add('dark');
+                icon.className = "fa-solid fa-sun text-lg text-amber-400";
+            }
+        }
+    </script>
+</body>
+</html>
